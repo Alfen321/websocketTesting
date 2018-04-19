@@ -1,7 +1,6 @@
-@import url(https://cdn.rawgit.com/tonsky/FiraCode/1.205/distr/fira_code.css);
-body {
-    background-color: #555555;
-    font-family: "Fira Code";
+html {
+    background-color: #222222;
+    font-family: monospace;
 }
 
 /* */
@@ -9,6 +8,29 @@ body {
 .console {
     color: #999999;
 }
+
+#oldContent{
+    margin: 0;
+}
+
+.user{
+    color: green;
+}
+.location{
+    color: purple;
+}
+
+.userInput {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: monospace;
+    width: 8px;
+    min-width: 8px;
+    color: #999999;
+}
+
+.userInput:focus {}
 
 /*
 Blinking Cursor

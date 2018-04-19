@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" onclick="FocusOnInput()">
 
 <head>
     <meta charset="UTF-8">
@@ -7,17 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Webconsole</title>¨
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.rawgit.com/tonsky/FiraCode/1.205/distr/fira_code.css">
     <script src="core.js"></script>
 </head>
 
-<body>
+<body onload="Init()">
     <div class="console">
-        <div class="oldContent"></div>
-        <div class="headerLine">user@location WebConsole ~</div>
-
-        <div class="currentLine">&lambda;
-            <span class="cursor">|</span>
+        <div id="oldContent"></div>
+        <div id="headerLine">
+            <span class="user">user</span>@
+            <span class="location">WebConsole</span> ~</div>
+        <div class="currentLine">
+            <span id="lineMarker">&lambda;</span>
+            <input type="text" class="userInput" id="userInput" spellcheck="false" onkeyup="CommandParser(this)" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';">
         </div>
     </div>
 </body>
