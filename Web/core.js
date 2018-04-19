@@ -11,6 +11,12 @@ function FocusOnInput() {
     document.getElementById("userInput").focus();
 }
 
+function ClearInput() {
+    document.getElementById("userInput").value = "";
+}
+function ClearConsole() {
+    oldContent = document.getElementById("oldContent").innerHTML = "";
+}
 
 function SetLineMarker(marker) {
     document.getElementById("lineMarker").innerHTML = marker;
@@ -19,11 +25,20 @@ function SetLineMarker(marker) {
 
 function CommandParser(input) {
     text = input.value;
-    oldContent = document.getElementById("oldContent");
-    header = document.getElementById("headerLine").innerHTML;
     if (event.key === 'Enter') {
-        oldContent.innerHTML += header + "<br>"
-            + text + "<br>"
+        if (text != "clear" && text != "cls") {
+            AddToBuffer(text)
+            ClearInput();
+        } else {
+            ClearConsole();
+        }
     }
 
+}
+
+function AddToBuffer(text) {
+    oldContent = document.getElementById("oldContent");
+    header = document.getElementById("headerLine").innerHTML;
+    oldContent.innerHTML += header + "<br>"
+        + text + "<br>"
 }
