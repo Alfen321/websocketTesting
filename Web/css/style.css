@@ -3,21 +3,24 @@ html {
     font-family: monospace;
 }
 
-/* */
-
 .console {
     color: #999999;
 }
 
-#oldContent{
-    margin: 15px 0 15px 0;
+#oldContent .block{
+    margin: 0 0 15px 0;
 }
+#oldContent .block
 
+
+#lineMarker {
+    color: #999999;
+}
 .user{
-    color: green;
+    color: rgb(0, 200, 0);
 }
 .location{
-    color: purple;
+    color: rgb(175, 0, 175);
 }
 
 .userInput {
@@ -29,9 +32,3 @@ html {
     min-width: 8px;
     color: #999999;
 }
-
-.userInput:focus {}
-
-/*
-Blinking Cursor
-*/

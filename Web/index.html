@@ -4,20 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Webconsole</title>¨
-    <link rel="stylesheet" href="style.css">
-    <script src="core.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/core.js"></script>
 </head>
 
 <body onload="Init()">
     <div class="console">
         <div id="oldContent"></div>
         <div id="headerLine">
-            <span class="user">user</span>@
-            <span class="location">WebConsole</span> ~</div>
+            <span class="user">guest</span>@<span class="location">webconsole</span> ~</div>
         <div class="currentLine">
-            <span id="lineMarker">&lambda;</span>
+            <span class="lineMarker">&lambda;</span>
             <input type="text" class="userInput" id="userInput" spellcheck="false" onkeyup="CommandParser(this)" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';">
         </div>
     </div>
