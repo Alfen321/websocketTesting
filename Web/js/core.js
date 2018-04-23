@@ -1,4 +1,4 @@
-var lineMarker = "&lambda;" + "&nbsp;"
+var prompt = "&lambda;" + "&nbsp;"
 
 function Init() {
     FocusOnInput()
@@ -26,21 +26,25 @@ function AddToBuffer(text) {
     oldContent = document.getElementById("oldContent");
     header = document.getElementById("headerLine").innerHTML;
     oldContent.innerHTML += "<div class=\"block\">" + header + "<br>" +
-        "<span class=\"lineMarker\">" + lineMarker + "</span>" + text + "<br>" + "</div>"
+        "<span class=\"prompt\">" + prompt + "</span>" + text + "<br>" + "</div>"
 }
 
-function currentOutput(text){
+function Output(text){
     oldContent = document.getElementById("oldContent").lastChild.innerHTML +=
     "<br>" + text + "<br><br>";
 }
 
 
-function SetLineMarker(marker) {
+function SetPrompt(marker) {
     if (marker != "") {
-        lineMarker = marker + "&nbsp;"
-        currentMarkers = document.getElementsByClassName("lineMarker");
+        if(marker.length > 1){
+            prompt = "&" + marker + ";&nbsp;"
+        } else {
+            prompt = marker + "&nbsp;"
+        }
+        currentMarkers = document.getElementsByClassName("prompt");
         for (var index = 0; index < currentMarkers.length; index++) {
-            currentMarkers[index].innerHTML = lineMarker;
+            currentMarkers[index].innerHTML = prompt;
 
         }
     }
@@ -51,9 +55,11 @@ function HelpFunction() {
     text = "Commmands:<br>" +
         "cls, clear:<br>" +
         "clear the screen.<br>" +
+        "alert [text]"
         "help:<br>"+
-        "show this text.<br>"
-    currentOutput(text);
+        "show this text.<br>"+
+        
+    Output(text);
 }
 
 function CommandParser(input) {
@@ -68,10 +74,11 @@ function CommandParser(input) {
                 ClearConsole();
                 break;
             case "alert":
+                AddToBuffer(text)
                 alert(cmdValue);
                 break;
-            case "marker":
-                SetLineMarker(cmdValue);
+            case "prompt":
+                SetPrompt(cmdValue);
                 break;
             case "help":
                 AddToBuffer(text);

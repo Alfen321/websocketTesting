@@ -10,10 +10,8 @@ html {
 #oldContent .block{
     margin: 0 0 15px 0;
 }
-#oldContent .block
 
-
-#lineMarker {
+#prompt {
     color: #999999;
 }
 .user{
