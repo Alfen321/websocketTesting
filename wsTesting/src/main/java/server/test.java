@@ -3,6 +3,7 @@ package server;
 import java.io.IOException;
 import java.io.InputStream;
 import static java.lang.Thread.sleep;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.websocket.OnClose;
@@ -21,6 +22,11 @@ public class test {
         System.out.println("client connected...");
         this.userSession = userSession;
         sendMessage("Welcome");
+        if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
+            sendMessage("I am a Windows based server");
+        } else {
+            sendMessage("I am a Unknown based server");
+        }
     }
 
     @OnClose
@@ -31,22 +37,31 @@ public class test {
     @OnMessage
     public void onMessage(String message) throws InterruptedException {
         String resultMessage = "";
+        Process p = null;
         if (message != null) {
             System.out.println(message);
             try {
-                Process p = Runtime.getRuntime().exec("cmd /c " + message);
+                if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
+                    p = Runtime.getRuntime().exec("cmd /c " + message);
+                } else {
+                    p = Runtime.getRuntime().exec("sh -c " + message);
+                }
                 InputStream in = p.getInputStream();
-
+                InputStream inf = p.getErrorStream();
+//                
+//                if(ins.available() != 0){
+//                    in = ins;
+//                }
+                sendMessage("StartOfReturnBlock");
                 int c;
-                sendMessage("NewCommandReturn");
                 while ((c = in.read()) != -1) {
                     resultMessage += (char) c;
-                    if(c == 10){
+                    if (c == 10) {
                         sendMessage(resultMessage);
                         resultMessage = "";
                     }
                 }
-                sendMessage("EndCommandReturn");
+                sendMessage("EndOfReturnBlock");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -60,5 +75,4 @@ public class test {
             ex.printStackTrace();
         }
     }
-
 }
