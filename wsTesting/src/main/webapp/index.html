@@ -16,7 +16,7 @@
         var messages = document.getElementById("messagesTextArea");
         var textMessage = document.getElementById("textMessage");
 
-        var ws = new WebSocket('ws://localhost:8084/wsTesting/test');
+        var ws = new WebSocket('ws://localhost:8080/wsTesting/test');
 
         ws.onopen = function (message) { processOpen(message); };
         ws.onclose = function (message) { processClose(message); };
