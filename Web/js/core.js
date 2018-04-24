@@ -1,8 +1,9 @@
 var prompt = "&lambda;" + "&nbsp;"
+var cmdHistory = [];
 
 function Init() {
     FocusOnInput()
-    document.getElementById("userInput").addEventListener("keyUp", function (event) {
+    document.getElementById("userInput").addEventListener("keyPress", function (event) {
         if (event.key === "Enter") {
             CommandParser(this.value);
         }
@@ -52,17 +53,17 @@ function SetPrompt(marker) {
 }
 
 function HelpFunction() {
-    text = "Commmands:<br>" +
+    text = 
         "cls, clear:<br>" +
         "clear the screen.<br>" +
         "alert [text]"
         "help:<br>"+
         "show this text.<br>"+
-        
     Output(text);
 }
 
 function CommandParser(input) {
+    inputField = document.getElementById("userInput");
     text = input.value;
     cmd = text.split(" ")[0];
     cmdValue = text.split(" ")[1];
@@ -88,7 +89,12 @@ function CommandParser(input) {
                 AddToBuffer(text)
                 break;
         }
+        cmdHistory.push(text);
         ClearInput();
+    } 
+    if (event.key === "38"){
+        console.log(cmdHistory.peek());
+        inputField.value = cmdHistory.peek();
     }
 
 }
