@@ -1,0 +1,32 @@
+html {
+    background-color: #222222;
+    font-family: monospace;
+}
+
+.console {
+    color: #999999;
+}
+
+#oldContent .block{
+    margin: 0 0 15px 0;
+}
+
+#prompt {
+    color: #999999;
+}
+.user{
+    color: rgb(0, 200, 0);
+}
+.location{
+    color: rgb(175, 0, 175);
+}
+
+.userInput {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: monospace;
+    width: 8px;
+    min-width: 8px;
+    color: #999999;
+}

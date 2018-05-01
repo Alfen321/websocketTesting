@@ -1,5 +1,8 @@
 package server;
 
+import Implements.LinuxSanitizingImplementation;
+import Implements.WindowsSanitizingImplementation;
+import Interfaces.SanitizingInputInterface;
 import java.io.IOException;
 import java.io.InputStream;
 import static java.lang.Thread.sleep;
@@ -16,6 +19,7 @@ import javax.websocket.server.ServerEndpoint;
 public class test {
 
     Session userSession = null;
+    SanitizingInputInterface sanitizing = null;
 
     @OnOpen
     public void handleOpen(Session userSession) {
@@ -42,9 +46,16 @@ public class test {
             System.out.println(message);
             try {
                 if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
-                    p = Runtime.getRuntime().exec("cmd /c " + message);
+                    sanitizing = new WindowsSanitizingImplementation();
+                    String saniText = sanitizing.sanitize(message);
+                    if(!saniText.equals("Illegal input!")){
+                        p = Runtime.getRuntime().exec("cmd /c " + saniText);                    
+                    }else{
+                        sendMessage(saniText );
+                    }
                 } else {
-                    p = Runtime.getRuntime().exec("sh -c " + message);
+                    sanitizing = new LinuxSanitizingImplementation();
+                    p = Runtime.getRuntime().exec("sh -c " + sanitizing.sanitize(message));
                 }
                 InputStream in = p.getInputStream();
                 InputStream inf = p.getErrorStream();
