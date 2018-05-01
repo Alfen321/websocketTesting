@@ -1,17 +1,15 @@
 package Implements;
 
+import Interfaces.DataConnectorInterface;
 import Interfaces.SanitizingInputInterface;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LinuxSanitizingImplementation implements SanitizingInputInterface{
+    
+    DataConnectorInterface DataConn = null;
+    List<String> illegalInputs = DataConn.retrieveIllegalInputs();
 
-    List<String> illegalInputs = new ArrayList<String>();
-
-    public LinuxSanitizingImplementation() {
-        illegalInputs.add("rm");
-    }
-        
     @Override
     public String sanitize(String message) {
     

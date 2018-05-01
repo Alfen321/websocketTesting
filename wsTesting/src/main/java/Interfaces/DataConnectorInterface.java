@@ -1,9 +1,9 @@
 package Interfaces;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface DataConnectorInterface {
     
-    ArrayList retrieveillegalInputs();
-    Boolean saveIllegalInput(String input);
+    List retrieveIllegalInputs();
+    boolean saveIllegalInput(String input);
 }
