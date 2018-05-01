@@ -85,12 +85,7 @@ public class FileImplementation implements DataConnectorInterface {
     @Override
     public List retrieveIllegalInputs() {
         createFile();
-        writeFile("test");
         ArrayList<String> list = (ArrayList<String>) readFile();
-        System.out.println(list.size());
-        for (String string : list) {
-            System.out.println(string);
-        }
         return list;
     }
 
