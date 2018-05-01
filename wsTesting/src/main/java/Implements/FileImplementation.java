@@ -33,7 +33,7 @@ public class FileImplementation implements DataConnectorInterface {
         try {
             writer = new FileWriter(file.getAbsoluteFile(), true);
             bw = new BufferedWriter(writer);
-            bw.write("\n''" + input + "''");
+            bw.write("'" + input + "'\n");
         } finally {
 
             try {
@@ -85,8 +85,12 @@ public class FileImplementation implements DataConnectorInterface {
     @Override
     public List retrieveIllegalInputs() {
         createFile();
+        writeFile("test");
         ArrayList<String> list = (ArrayList<String>) readFile();
-        //System.out.println(list.size());
+        System.out.println(list.size());
+        for (String string : list) {
+            System.out.println(string);
+        }
         return list;
     }
 
