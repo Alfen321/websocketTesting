@@ -16,7 +16,7 @@ public class WindowsSanitizingImplementation implements SanitizingInputInterface
     public String sanitize(String message) {
     
         for (String illegalInput : illegalInputs) {
-            if(message.toLowerCase().contains(message)){
+            if(message.toLowerCase().contains(illegalInput)){
                 return "Illegal input!";
             }
         }
