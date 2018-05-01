@@ -3,9 +3,12 @@ var cmdHistory = [];
 
 function Init() {
     FocusOnInput()
-    document.getElementById("userInput").addEventListener("keyPress", function (event) {
+    document.addEventListener("keyPress", function (event) {
         if (event.key === "Enter") {
-            CommandParser(this.value);
+            CommandParser(document.getElementById("userInput").value);
+        } else if (event.key === 38) {
+            console.log(cmdHistory.peek());
+            inputField.value = cmdHistory.peek();
         }
     });
 }
@@ -92,9 +95,5 @@ function CommandParser(input) {
         cmdHistory.push(text);
         ClearInput();
     } 
-    if (event.key === "38"){
-        console.log(cmdHistory.peek());
-        inputField.value = cmdHistory.peek();
-    }
 
 }
