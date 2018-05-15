@@ -5,10 +5,6 @@ import Implements.WindowsSanitizingImplementation;
 import Interfaces.SanitizingInputInterface;
 import java.io.IOException;
 import java.io.InputStream;
-import static java.lang.Thread.sleep;
-import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -20,7 +16,11 @@ public class test {
 
     Session userSession = null;
     SanitizingInputInterface sanitizing = null;
-
+    
+    private boolean set = false;
+    Process p = null;
+    Runtime rt = Runtime.getRuntime();
+            
     @OnOpen
     public void handleOpen(Session userSession) {
         System.out.println("client connected...");
@@ -41,7 +41,6 @@ public class test {
     @OnMessage
     public void onMessage(String message) throws InterruptedException {
         String resultMessage = "";
-        Process p = null;
         if (message != null) {
             System.out.println(message);
             try {
@@ -49,10 +48,22 @@ public class test {
                     sanitizing = new WindowsSanitizingImplementation();
                     String saniText = sanitizing.sanitize(message);
                     if(!saniText.equals("Illegal input!")){
-                        p = Runtime.getRuntime().exec("cmd /c " + saniText);                    
+                        
+                        String[] test = new String[6];
+                        test[0] = "cmd.exe";
+                        test[1] = "/c";
+                        test[2] = "cd ..";
+                        test[3] = "dir";
+                        test[4] = "cd ..";
+                        test[5] = "dir";
+                        
+                        p = Runtime.getRuntime().exec("cmd /c " + saniText);
+                        //rt.exec("cmd /c", test);
                     }else{
-                        sendMessage(saniText );
+                        sendMessage(saniText);
                     }
+                    
+                    
                 } else {
                     sanitizing = new LinuxSanitizingImplementation();
                     p = Runtime.getRuntime().exec("sh -c " + sanitizing.sanitize(message));
