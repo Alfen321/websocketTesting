@@ -6,4 +6,5 @@ public interface DataConnectorInterface {
     
     List retrieveIllegalInputs();
     boolean saveIllegalInput(String input);
+    
 }
