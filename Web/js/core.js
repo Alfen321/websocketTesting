@@ -3,10 +3,11 @@ var cmdHistory = [];
 
 function Init() {
     FocusOnInput()
-    document.addEventListener("keyPress", function (event) {
+    document.document.getElementById("userInput").addEventListener("keyPress", function (event) {
+        event.preventDefault();
         if (event.key === "Enter") {
-            CommandParser(document.getElementById("userInput").value);
-        } else if (event.key === 38) {
+            CommandParser(this.value);
+        } else if (event.key === "ArrowUp") {
             console.log(cmdHistory.peek());
             inputField.value = cmdHistory.peek();
         }
@@ -22,26 +23,26 @@ function ClearInput() {
 }
 
 function ClearConsole() {
-    oldContent = document.getElementById("oldContent").innerHTML = "";
+    messages = document.getElementById("messages").innerHTML = "";
 }
 
 function AddToBuffer(text) {
     //yea its ugly deal with it.
-    oldContent = document.getElementById("oldContent");
+    messages = document.getElementById("messages");
     header = document.getElementById("headerLine").innerHTML;
-    oldContent.innerHTML += "<div class=\"block\">" + header + "<br>" +
+    messages.innerHTML += "<div class=\"block\">" + header + "<br>" +
         "<span class=\"prompt\">" + prompt + "</span>" + text + "<br>" + "</div>"
 }
 
-function Output(text){
-    oldContent = document.getElementById("oldContent").lastChild.innerHTML +=
-    "<br>" + text + "<br><br>";
+function Output(text) {
+    messages = document.getElementById("messages").lastChild.innerHTML +=
+        "<br>" + text + "<br><br>";
 }
 
 
 function SetPrompt(marker) {
     if (marker != "") {
-        if(marker.length > 1){
+        if (marker.length > 1) {
             prompt = "&" + marker + ";&nbsp;"
         } else {
             prompt = marker + "&nbsp;"
@@ -49,19 +50,17 @@ function SetPrompt(marker) {
         currentMarkers = document.getElementsByClassName("prompt");
         for (var index = 0; index < currentMarkers.length; index++) {
             currentMarkers[index].innerHTML = prompt;
-
         }
     }
-
 }
 
 function HelpFunction() {
-    text = 
+    text =
         "cls, clear:<br>" +
         "clear the screen.<br>" +
         "alert [text]"
-        "help:<br>"+
-        "show this text.<br>"+
+    "help:<br>" +
+    "show this text.<br>" +
     Output(text);
 }
 
@@ -78,7 +77,7 @@ function CommandParser(input) {
                 ClearConsole();
                 break;
             case "alert":
-                AddToBuffer(text)
+                AddToBuffer(text);
                 alert(cmdValue);
                 break;
             case "prompt":
@@ -89,11 +88,12 @@ function CommandParser(input) {
                 HelpFunction();
                 break;
             default:
-                AddToBuffer(text)
+                AddToBuffer(text);
+                sendMessage(text);
                 break;
         }
         cmdHistory.push(text);
         ClearInput();
-    } 
+    }
 
 }

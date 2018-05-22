@@ -11,15 +11,18 @@
 
 <body onload="Init()">
     <div class="console">
-        <div id="oldContent"></div>
+        <div id="messages"></div>
         <div id="headerLine">
-            <span class="user">guest</span>@<span class="location">webconsole</span> ~</div>
+            <span class="user">guest</span>@
+            <span class="location">webconsole</span> ~</div>
         <div class="currentLine">
             <span class="prompt">&lambda;</span>
             <input type="text" class="userInput" id="userInput" spellcheck="false" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';">
         </div>
     </div>
     <script src="js/core.js"></script>
+    <script src="js/connector.js"></script>
+
 </body>
 
 </html>
