@@ -8,7 +8,6 @@ ws.onopen = function (message) {
 };
 
 ws.onclose = function (message) {
-    ws.send("client disconnected...");
     Output("Server Disconnect...");
 };
 

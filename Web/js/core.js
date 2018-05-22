@@ -85,28 +85,28 @@ function CommandParser(input) {
     }
 
     if (event.key === 'Enter') {
+        AddToBuffer(text);
         switch (cmd) {
             case "clear":
             case "cls":
                 ClearConsole();
                 break;
             case "alert":
-                AddToBuffer(text);
                 alert(cmdValue);
                 break;
             case "prompt":
                 SetPrompt(cmdValue);
                 break;
             case "help":
-                AddToBuffer(text);
                 HelpFunction();
                 break;
             case "disconnect":
-                AddToBuffer(text);    
                 ws.close();
                 break;
+            case "connect":
+                connect();
+                break;
             default:
-                AddToBuffer(text);
                 sendMessage(text);
                 break;
         }
