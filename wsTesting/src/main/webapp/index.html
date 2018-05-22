@@ -1,47 +1,26 @@
 <!DOCTYPE html>
-<html>
- 
+<html lang="en" onclick="FocusOnInput()">
+
 <head>
-    <title>Start Page</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webconsole</title>
+    <link rel="icon" type="img/png" href="img/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
 </head>
- 
+
 <body>
-    <h1>Hello World!</h1>
-    <input id="textMessage" type="text">
-    <input onClick="sendMessage()" value="send Message" type="button">
-    <br>
-    <textarea id="messagesTextArea" rows="10" cols="50"></textarea>
-    <script type="text/javascript">
-        var messages = document.getElementById("messagesTextArea");
-        var textMessage = document.getElementById("textMessage");
- 
-        var ws = new WebSocket('ws://localhost:8084/wsTesting/cmd');
- 
-        ws.onopen = function (message) { processOpen(message); };
-        ws.onclose = function (message) { processClose(message); };
-        ws.onmessage = function (message) { processMessage(message); };
- 
-        function processOpen(message) {
-            messages.value += 'Server Connected...\n';
-        }
- 
-        function processClose(message) {
-            wa.send('client disconnected...');
-            messages.value += 'Server disconnected...\n';
-        }
- 
-        function sendMessage(message) {
-            ws.send(textMessage.value);
-            messages.value += 'send to server -> ' + textMessage.value + '\n';
-            textMessage.value = '';
-        }
- 
-        function processMessage(message) {
-            messages.value += message.data + '\n';
-        }
- 
-    </script>
+    <div class="console">
+        <div id="messages"></div>
+        <div id="headerLine">
+            <span class="user">guest</span>@<span class="location">webconsole</span> ~</div>
+        <div class="currentLine">
+            <span class="prompt">&lambda;</span>
+            <input type="text" class="userInput" id="userInput" spellcheck="false" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';">
+        </div>
+    </div>
+
 </body>
- 
+<script src="js/core.js"></script>
+<script src="js/connector.js"></script>
 </html>
