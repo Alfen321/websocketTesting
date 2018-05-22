@@ -2,8 +2,8 @@ package ConsoleEvironment.CommandHandler;
 
 import ConsoleEvironment.Console.IOutput;
 
-public class CommandHandlerRaw implements ICommandHandler{
-    
+public class CommandHandlerRaw implements ICommandHandler {
+
     @Override
     public boolean setup() {
         return true;

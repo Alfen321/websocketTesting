@@ -1,5 +1,8 @@
 var ws = new WebSocket("ws://localhost:8084/wsTesting/cmd");
 
+function connect() {
+    ws = new WebSocket("ws://localhost:8084/wsTesting/cmd");
+}
 ws.onopen = function (message) {
     Output("Server Connected...");
 };

@@ -104,7 +104,7 @@ function CommandParser(input) {
             case "disconnect":
                 AddToBuffer(text);    
                 ws.close();
-                
+                break;
             default:
                 AddToBuffer(text);
                 sendMessage(text);
@@ -117,3 +117,4 @@ function CommandParser(input) {
 }
 
 Init();
+AddToBuffer("Welcome to the webconsole!<br>")
