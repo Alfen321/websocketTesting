@@ -5,7 +5,7 @@ ws.onopen = function (message) {
 };
 
 ws.onclose = function (message) {
-    wa.send("client disconnected...");
+    ws.send("client disconnected...");
     Output("Server Disconnect...");
 };
 
@@ -14,6 +14,5 @@ ws.onmessage = function (message) {
 };
 
 function sendMessage(message) {
-    ws.send(message.data);
-    Output("Send to server -> " + message);
+    ws.send(message);
 }

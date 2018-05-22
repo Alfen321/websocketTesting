@@ -16,8 +16,7 @@ public class cmd implements IOutput {
 
     Session userSession = null;
     WebsocketController wsController = null;
-    
-    
+
     @OnOpen
     public void handleOpen(Session userSession) {
         this.userSession = userSession;

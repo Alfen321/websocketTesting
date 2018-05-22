@@ -39,8 +39,12 @@ function AddToBuffer(text) {
 }
 
 function Output(text) {
-    messages += document.getElementById("messages").lastChild.innerHTML +=
-        "<br>" + text;
+    messages.lastChild.innerHTML += text+"<br>";
+}
+
+function addHeader(){
+    header = document.getElementById("headerLine").innerHTML;
+    messages.innerHTML += header;
 }
 
 
