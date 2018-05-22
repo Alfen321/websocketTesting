@@ -1,21 +1,19 @@
 var ws = new WebSocket("ws://localhost:8084/wsTesting/cmd");
-var messages = document.getElementById("messages");
 
 ws.onopen = function (message) {
-    AddToBuffer("Server Connected... \n");
+    Output("Server Connected...");
 };
 
 ws.onclose = function (message) {
-    processClose(message);
     wa.send("client disconnected...");
-    AddToBuffer("ServerDisconnect...");
+    Output("Server Disconnect...");
 };
 
 ws.onmessage = function (message) {
-    AddToBuffer(message.data)
+    Output(message.data);
 };
 
 function sendMessage(message) {
-    ws.send(message);
-    AddToBuffer("Send to server -> " + message);
+    ws.send(message.data);
+    Output("Send to server -> " + message);
 }

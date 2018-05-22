@@ -3,6 +3,7 @@ Interfaces\SanitizingInputInterface.class
 ConsoleEvironment\Console\Console.class
 Implements\FileImplementation.class
 ConsoleEvironment\Console\ConsoleReader.class
+testEnv\MyExec.class
 ConsoleEvironment\Controller\WebsocketController.class
 ConsoleEvironment\Console\IConsole.class
 Interfaces\DataConnectorInterface.class

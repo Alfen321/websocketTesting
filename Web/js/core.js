@@ -1,12 +1,17 @@
 var prompt = "&lambda;" + "&nbsp;"
 var cmdHistory = [];
+var messages = document.getElementById("messages");
+
 
 function Init() {
     FocusOnInput()
-    document.document.getElementById("userInput").addEventListener("keyPress", function (event) {
-        event.preventDefault();
+    messages.innerHTML = "<div class=\"block\">"
+    "<span class=\"prompt\">" + prompt + "</span>Welcome to the Webconsole!<br>" + 
+    "</div>";
+
+    document.getElementById("userInput").addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
-            CommandParser(this.value);
+            CommandParser(this);
         } else if (event.key === "ArrowUp") {
             console.log(cmdHistory.peek());
             inputField.value = cmdHistory.peek();
@@ -23,20 +28,19 @@ function ClearInput() {
 }
 
 function ClearConsole() {
-    messages = document.getElementById("messages").innerHTML = "";
+    document.getElementById("messages").innerHTML = "";
 }
 
 function AddToBuffer(text) {
     //yea its ugly deal with it.
-    messages = document.getElementById("messages");
     header = document.getElementById("headerLine").innerHTML;
     messages.innerHTML += "<div class=\"block\">" + header + "<br>" +
         "<span class=\"prompt\">" + prompt + "</span>" + text + "<br>" + "</div>"
 }
 
 function Output(text) {
-    messages = document.getElementById("messages").lastChild.innerHTML +=
-        "<br>" + text + "<br><br>";
+    messages += document.getElementById("messages").lastChild.innerHTML +=
+        "<br>" + text;
 }
 
 
@@ -64,11 +68,17 @@ function HelpFunction() {
     Output(text);
 }
 
+// Takes a HTML element as input
 function CommandParser(input) {
     inputField = document.getElementById("userInput");
     text = input.value;
-    cmd = text.split(" ")[0];
-    cmdValue = text.split(" ")[1];
+    try {
+        cmd = text.split(" ")[0];
+        cmdValue = text.split(" ")[1];
+    } catch (error) {
+        cmd = text;
+        cmdValue = "no value given";
+    }
 
     if (event.key === 'Enter') {
         switch (cmd) {
@@ -87,6 +97,10 @@ function CommandParser(input) {
                 AddToBuffer(text);
                 HelpFunction();
                 break;
+            case "disconnect":
+                AddToBuffer(text);    
+                ws.close();
+                
             default:
                 AddToBuffer(text);
                 sendMessage(text);
@@ -97,3 +111,5 @@ function CommandParser(input) {
     }
 
 }
+
+Init();
