@@ -15,18 +15,20 @@ public class Console implements IConsole {
 
     private Thread readerThread = null;
     
-    private IOutput output = null;
+    private ConsoleQueue cq = null;
     
+    public Console(ConsoleQueue cq) {
+        this.cq = cq;
+    } 
 
     @Override
-    public boolean setup(IOutput output) {
-        this.output = output;
+    public boolean setup() {
         try {
             builder = new ProcessBuilder("cmd.exe");
             p = builder.start();
 
             p_stdin = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
-            conReader = new ConsoleReader(p.getInputStream(), output);
+            conReader = new ConsoleReader(p.getInputStream(), cq);
             readerThread = new Thread(conReader);
 
             readerThread.start();

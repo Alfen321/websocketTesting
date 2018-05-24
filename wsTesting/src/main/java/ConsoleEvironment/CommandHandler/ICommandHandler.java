@@ -1,6 +1,5 @@
 package ConsoleEvironment.CommandHandler;
 
-import ConsoleEvironment.Console.IOutput;
 
 public interface ICommandHandler {
 

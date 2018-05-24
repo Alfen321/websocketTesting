@@ -2,9 +2,11 @@ package server;
 
 import ConsoleEvironment.CommandHandler.CommandHandlerRaw;
 import ConsoleEvironment.Console.Console;
-import ConsoleEvironment.Console.IOutput;
+import ConsoleEvironment.Console.ConsoleQueue;
 import ConsoleEvironment.Controller.WebsocketController;
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -12,7 +14,7 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 @ServerEndpoint("/cmd")
-public class cmd implements IOutput {
+public class cmd implements Observer {
 
     Session userSession = null;
     WebsocketController wsController = null;
@@ -21,7 +23,9 @@ public class cmd implements IOutput {
     public void handleOpen(Session userSession) {
         this.userSession = userSession;
         System.out.println("client connected...");
-        wsController = new WebsocketController(this, new Console(), new CommandHandlerRaw());
+        ConsoleQueue cq = new ConsoleQueue();
+        cq.addObserver(this);
+        wsController = new WebsocketController(new Console(cq), new CommandHandlerRaw());
     }
 
     @OnClose
@@ -44,7 +48,10 @@ public class cmd implements IOutput {
     }
 
     @Override
-    public void send(String message) {
-        sendMessage(message);
+    public void update(Observable o, Object arg) {
+        ConsoleQueue cq = (ConsoleQueue) o;
+        while(cq.queueHasNext()){
+            sendMessage(cq.getNextOutput());
+        }
     }
 }
