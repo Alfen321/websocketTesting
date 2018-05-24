@@ -10,8 +10,8 @@ public class CommandHandlerRaw implements ICommandHandler {
     }
 
     @Override
-    public String command(String commmand) {
-        return commmand;
+    public String command(String command) {
+        return command;
     }
 
     @Override
