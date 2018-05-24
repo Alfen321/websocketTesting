@@ -1,8 +1,18 @@
-var ws = new WebSocket("ws://localhost:8084/wsTesting/cmd");
+var loc = window.location, new_uri;
+if (loc.protocol === "https:") {
+    new_uri = "wss:";
+} else {
+    new_uri = "ws:";
+}
+new_uri += "//" + loc.host;
+new_uri += loc.pathname + "/cmd";
+
+var ws = new WebSocket(new_uri);
 
 function connect() {
-    ws = new WebSocket("ws://localhost:8084/wsTesting/cmd");
+    ws = new WebSocket(new_uri);
 }
+
 ws.onopen = function (message) {
     Output("Server Connected...");
 };
