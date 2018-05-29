@@ -2,11 +2,11 @@ package ConsoleEvironment.CommandHandler;
 
 import Implements.LinuxSanitizingImplementation;
 import Implements.WindowsSanitizingImplementation;
-import Interfaces.SanitizingInputInterface;
+import Interfaces.InputSanitizeInterface;
 
 public class CommandHandlerBlacklist implements ICommandHandler {
 
-    SanitizingInputInterface sanitizing = null;
+    InputSanitizeInterface sanitizing = null;
 
     @Override
     public boolean setup() {

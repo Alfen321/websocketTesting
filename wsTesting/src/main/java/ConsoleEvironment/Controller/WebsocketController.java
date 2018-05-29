@@ -20,7 +20,12 @@ public class WebsocketController implements IController {
     public void runCommand(String command) {
         console.runCommand(commandHandler.command(command));
     }
-    
+
+    public void updateCH(ICommandHandler _handler){
+        commandHandler = _handler;
+        commandHandler.setup();
+    }
+
     public void terminate(){
         console.terminate();
         commandHandler.terminate();

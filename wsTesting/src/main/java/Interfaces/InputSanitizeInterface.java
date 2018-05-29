@@ -1,6 +1,6 @@
 package Interfaces;
 
-public interface SanitizingInputInterface {
+public interface InputSanitizeInterface {
     
     String sanitize(String message);
     

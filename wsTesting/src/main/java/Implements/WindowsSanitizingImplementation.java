@@ -1,20 +1,20 @@
 package Implements;
 
 import Interfaces.DataConnectorInterface;
-import java.util.ArrayList;
-import java.util.List;
-import Interfaces.SanitizingInputInterface;
 
-public class WindowsSanitizingImplementation implements SanitizingInputInterface{
+import java.util.List;
+import Interfaces.InputSanitizeInterface;
+
+public class WindowsSanitizingImplementation implements InputSanitizeInterface {
 
     DataConnectorInterface DataConn = null;
     List<String> illegalInputs = null;
 
     public WindowsSanitizingImplementation(boolean _whitelist) {
         if(_whitelist){
-            DataConn = new FileImplementation("Windows", true);
+            DataConn = new FileImplementation("Windows", "whitelist");
         }else{
-            DataConn = new FileImplementation("Windows", false);
+            DataConn = new FileImplementation("Windows", "blacklist");
         }
         
         illegalInputs = DataConn.retrieveIllegalInputs();

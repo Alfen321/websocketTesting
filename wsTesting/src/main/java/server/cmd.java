@@ -1,10 +1,12 @@
 package server;
 
 import ConsoleEvironment.CommandHandler.CommandHandlerBlacklist;
+import ConsoleEvironment.CommandHandler.CommandHandlerCommand;
 import ConsoleEvironment.CommandHandler.CommandHandlerRaw;
 import ConsoleEvironment.Console.Console;
 import ConsoleEvironment.Console.ConsoleObservable;
 import ConsoleEvironment.Controller.WebsocketController;
+
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
@@ -37,7 +39,20 @@ public class cmd implements Observer {
 
     @OnMessage
     public void onMessage(String message) throws InterruptedException {
-        wsController.runCommand(message);
+        switch (message) {
+            case "!raw":
+                wsController.updateCH(new CommandHandlerRaw());
+                break;
+            case "!blacklist":
+                wsController.updateCH(new CommandHandlerBlacklist());
+                break;
+            case "!command":
+                wsController.updateCH(new CommandHandlerCommand());
+                break;
+            default:
+                wsController.runCommand(message);
+                break;
+        }
     }
 
     public void sendMessage(String message) {

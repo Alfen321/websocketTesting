@@ -1,20 +1,20 @@
 package Implements;
 
 import Interfaces.DataConnectorInterface;
-import Interfaces.SanitizingInputInterface;
-import java.util.ArrayList;
+import Interfaces.InputSanitizeInterface;
+
 import java.util.List;
 
-public class LinuxSanitizingImplementation implements SanitizingInputInterface {
+public class LinuxSanitizingImplementation implements InputSanitizeInterface {
 
     DataConnectorInterface DataConn = null;
     List<String> illegalInputs = null;
 
     public LinuxSanitizingImplementation(boolean _whitelist) {
         if (_whitelist) {
-            DataConn = new FileImplementation("Linux", true);
+            DataConn = new FileImplementation("Linux", "whitelist");
         } else {
-            DataConn = new FileImplementation("Linux", false);
+            DataConn = new FileImplementation("Linux", "blacklist");
         }
 
         illegalInputs = DataConn.retrieveIllegalInputs();

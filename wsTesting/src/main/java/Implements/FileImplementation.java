@@ -16,8 +16,8 @@ public class FileImplementation implements DataConnectorInterface {
     FileWriter writer = null;
     BufferedWriter bw = null;
 
-    public FileImplementation(String _os, boolean _whitelist) {
-        String fileName = "";
+    public FileImplementation(String _os, String _type) {
+        String fileName;
         if(_os.toLowerCase().equals("windows")){
             fileName = "windows";
         }else if(_os.toLowerCase().equals("linux")){
@@ -25,13 +25,19 @@ public class FileImplementation implements DataConnectorInterface {
         }else{
             fileName = "other";
         }
-        
-        if(_whitelist){
-            fileName += "whitelist";
-        }else{
-            fileName += "blacklist";
+
+        switch (_type.toLowerCase()){
+            case "whitelist":
+                fileName += "whitelist";
+                break;
+            case "blacklist":
+                fileName += "blacklist";
+                break;
+            case "command":
+                fileName += "command";
+                break;
         }
-        
+
         fileName += ".txt";
         
         file = new File(fileName);
@@ -56,7 +62,7 @@ public class FileImplementation implements DataConnectorInterface {
         try {
             writer = new FileWriter(file.getAbsoluteFile(), true);
             bw = new BufferedWriter(writer);
-            bw.write("'" + input + "'\n");
+                bw.write("'" + input + "'\n");
         } finally {
 
             try {

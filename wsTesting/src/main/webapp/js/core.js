@@ -64,11 +64,12 @@ function SetPrompt(marker) {
 
 function HelpFunction() {
     text =
-        "cls, clear:<br>" +
-        "clear the screen.<br>" +
-        "alert [text]"
-    "help:<br>" +
-    "show this text.<br>" +
+        "cls, clear: clear the screen.<br>" +
+        "!raw: No input sanitizing.<br>" +
+        "!blacklist: Input sanitizing.<br>" +
+        "!command: Command based input.<br>" +
+        "alert [text] <br>" +
+        "help: show this text. <br>"
     Output(text);
 }
 
