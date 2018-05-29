@@ -3,7 +3,7 @@ package ConsoleEvironment.Console;
 
 public interface IConsole {
     
-    public boolean setup(IOutput output);
+    public boolean setup();
 
     public boolean isAlive();
 

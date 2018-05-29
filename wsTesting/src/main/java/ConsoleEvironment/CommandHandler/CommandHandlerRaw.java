@@ -1,7 +1,5 @@
 package ConsoleEvironment.CommandHandler;
 
-import ConsoleEvironment.Console.IOutput;
-
 public class CommandHandlerRaw implements ICommandHandler {
 
     @Override

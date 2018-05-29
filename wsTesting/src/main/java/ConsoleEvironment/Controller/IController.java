@@ -1,8 +1,6 @@
 package ConsoleEvironment.Controller;
 
-import ConsoleEvironment.Console.IOutput;
-
-public interface IController extends IOutput {
+public interface IController {
     
     public void runCommand(String command);
 }
