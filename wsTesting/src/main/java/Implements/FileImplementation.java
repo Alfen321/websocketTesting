@@ -11,10 +11,33 @@ import java.util.List;
 
 public class FileImplementation implements DataConnectorInterface {
 
-    File file = new File("test.txt");
-    String path = file.getAbsolutePath();
+    File file = null;
+    String path = null;
     FileWriter writer = null;
     BufferedWriter bw = null;
+
+    public FileImplementation(String _os, boolean _whitelist) {
+        String fileName = "";
+        if(_os.toLowerCase().equals("windows")){
+            fileName = "windows";
+        }else if(_os.toLowerCase().equals("linux")){
+            fileName = "linux";
+        }else{
+            fileName = "other";
+        }
+        
+        if(_whitelist){
+            fileName += "whitelist";
+        }else{
+            fileName += "blacklist";
+        }
+        
+        fileName += ".txt";
+        
+        file = new File(fileName);
+        createFile();
+        path = file.getAbsolutePath();
+    }
 
     private boolean createFile() {
         try {
@@ -84,14 +107,12 @@ public class FileImplementation implements DataConnectorInterface {
 
     @Override
     public List retrieveIllegalInputs() {
-        createFile();
         ArrayList<String> list = (ArrayList<String>) readFile();
         return list;
     }
 
     @Override
     public boolean saveIllegalInput(String input) {
-        createFile();
         return writeFile(input);
     }
 

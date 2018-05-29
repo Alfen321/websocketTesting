@@ -7,14 +7,18 @@ import Interfaces.SanitizingInputInterface;
 
 public class WindowsSanitizingImplementation implements SanitizingInputInterface{
 
-    /*List<String> illegalInputs = new ArrayList<String>();
+    DataConnectorInterface DataConn = null;
+    List<String> illegalInputs = null;
 
-    public WindowsSanitizingImplementation() {
-        illegalInputs.add("del");
-    }*/
-    
-    DataConnectorInterface DataConn = new FileImplementation();
-    List<String> illegalInputs = DataConn.retrieveIllegalInputs();
+    public WindowsSanitizingImplementation(boolean _whitelist) {
+        if(_whitelist){
+            DataConn = new FileImplementation("Windows", true);
+        }else{
+            DataConn = new FileImplementation("Windows", false);
+        }
+        
+        illegalInputs = DataConn.retrieveIllegalInputs();
+    }
     
     @Override
     public String sanitize(String message) {

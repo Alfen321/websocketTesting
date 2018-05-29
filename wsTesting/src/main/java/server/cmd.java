@@ -1,5 +1,6 @@
 package server;
 
+import ConsoleEvironment.CommandHandler.CommandHandlerBlacklist;
 import ConsoleEvironment.CommandHandler.CommandHandlerRaw;
 import ConsoleEvironment.Console.Console;
 import ConsoleEvironment.Console.IOutput;
@@ -21,7 +22,7 @@ public class cmd implements IOutput {
     public void handleOpen(Session userSession) {
         this.userSession = userSession;
         System.out.println("client connected...");
-        wsController = new WebsocketController(this, new Console(), new CommandHandlerRaw());
+        wsController = new WebsocketController(this, new Console(), new CommandHandlerBlacklist());
     }
 
     @OnClose
