@@ -2,7 +2,7 @@ package server;
 
 import ConsoleEvironment.CommandHandler.CommandHandlerRaw;
 import ConsoleEvironment.Console.Console;
-import ConsoleEvironment.Console.ConsoleQueue;
+import ConsoleEvironment.Console.ConsoleObservable;
 import ConsoleEvironment.Controller.WebsocketController;
 import java.io.IOException;
 import java.util.Observable;
@@ -23,9 +23,9 @@ public class cmd implements Observer {
     public void handleOpen(Session userSession) {
         this.userSession = userSession;
         System.out.println("client connected...");
-        ConsoleQueue cq = new ConsoleQueue();
-        cq.addObserver(this);
-        wsController = new WebsocketController(new Console(cq), new CommandHandlerRaw());
+        ConsoleObservable consoleObs = new ConsoleObservable();
+        consoleObs.addObserver(this);
+        wsController = new WebsocketController(new Console(consoleObs), new CommandHandlerRaw());
     }
 
     @OnClose
@@ -49,9 +49,7 @@ public class cmd implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        ConsoleQueue cq = (ConsoleQueue) o;
-        while(cq.queueHasNext()){
-            sendMessage(cq.getNextOutput());
-        }
+        String consoleOutput = (String) arg;
+        sendMessage(consoleOutput);
     }
 }

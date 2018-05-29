@@ -14,12 +14,13 @@ public class Console implements IConsole {
     private ConsoleReader conReader = null;
 
     private Thread readerThread = null;
+
+    private ConsoleObservable consoleObs = null;
+
+    public Console(ConsoleObservable consoleObs) {
+        this.consoleObs = consoleObs;
+    }
     
-    private ConsoleQueue cq = null;
-    
-    public Console(ConsoleQueue cq) {
-        this.cq = cq;
-    } 
 
     @Override
     public boolean setup() {
@@ -28,7 +29,7 @@ public class Console implements IConsole {
             p = builder.start();
 
             p_stdin = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
-            conReader = new ConsoleReader(p.getInputStream(), cq);
+            conReader = new ConsoleReader(p.getInputStream(), consoleObs);
             readerThread = new Thread(conReader);
 
             readerThread.start();
@@ -59,4 +60,5 @@ public class Console implements IConsole {
         conReader.terminate();
         p.destroyForcibly();
     }
+    
 }

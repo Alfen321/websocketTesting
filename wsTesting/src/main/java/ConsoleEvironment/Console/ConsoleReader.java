@@ -8,18 +8,18 @@ public class ConsoleReader implements Runnable {
 
     private Scanner in = null;
     private volatile boolean running = true;
-    private ConsoleQueue cq = null;
+    private ConsoleObservable consoleObs = null;
 
-    public ConsoleReader(InputStream stream, ConsoleQueue cq) {
+    public ConsoleReader(InputStream stream, ConsoleObservable consoleObs) {
         this.in = new Scanner(stream);
-        this.cq = cq;
+        this.consoleObs = consoleObs;
     }
 
     @Override
     public void run() {
         while (running) {
             if (in.hasNextLine()) {
-                cq.addToQueue(in.nextLine());
+                consoleObs.sendOutput(in.nextLine());
             }
         }
     }
