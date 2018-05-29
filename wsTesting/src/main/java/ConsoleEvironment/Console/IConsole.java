@@ -10,4 +10,5 @@ public interface IConsole {
     public void runCommand(String command);
 
     public void terminate();
+    
 }
